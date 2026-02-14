@@ -3,97 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Olive & Oak Deli | Breakfast with Love</title>
+    <title>The Gilded Grill | OK x ME Fusion</title>
     <style>
         :root {
-            --southern-sage: #8da399;
-            --clay-terracotta: #d67d5c;
-            --warm-cream: #f9f5f0;
-            --deep-wood: #3e2f28;
+            --ok-rust: #a24632;      /* Red dirt/Oklahoma clay */
+            --lebanese-gold: #c5a059; /* Saffron/Gold accents */
+            --prairie-sky: #e1eef6;   /* Light blue contrast */
+            --charcoal: #2d2926;      /* Cast iron skillet feel */
         }
 
         body {
-            font-family: 'Georgia', serif;
-            background-color: var(--warm-cream);
-            color: var(--deep-wood);
+            background-color: var(--prairie-sky);
+            font-family: 'Playfair Display', serif;
+            color: var(--charcoal);
             margin: 0;
-            padding: 20px;
+            padding: 40px 20px;
+        }
+
+        /* Middle Eastern Geometric Border style */
+        .menu-card {
+            max-width: 700px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 40px;
+            border: 8px double var(--lebanese-gold);
+            box-shadow: 10px 10px 0px var(--ok-rust);
+            border-radius: 2px;
         }
 
         header {
             text-align: center;
-            border-bottom: 2px solid var(--clay-terracotta);
-            padding-bottom: 20px;
-            margin-bottom: 30px;
+            border-bottom: 2px solid var(--ok-rust);
+            margin-bottom: 40px;
         }
 
-        h1 { font-style: italic; color: var(--clay-terracotta); }
+        h1 { 
+            text-transform: uppercase; 
+            letter-spacing: 3px; 
+            margin-bottom: 5px;
+            color: var(--ok-rust);
+        }
 
-        .menu-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        .category-title {
+            font-family: 'Courier New', monospace;
+            background: var(--ok-rust);
+            color: white;
+            padding: 5px 15px;
+            display: inline-block;
+            margin-top: 30px;
         }
 
         .menu-item {
+            margin: 20px 0;
             display: flex;
             justify-content: space-between;
-            margin-bottom: 25px;
-            border-bottom: 1px dotted var(--southern-sage);
-            padding-bottom: 10px;
+            align-items: flex-start;
         }
 
-        .item-details h3 { margin: 0; color: var(--deep-wood); }
-        .item-details p { margin: 5px 0; font-size: 0.9em; color: #666; }
-        .price { font-weight: bold; color: var(--clay-terracotta); }
+        .item-info h3 { margin: 0; font-size: 1.4em; }
+        .item-info p { margin: 5px 0; font-style: italic; color: #555; }
+        .price { font-weight: bold; color: var(--ok-rust); font-size: 1.2em; }
 
-        button {
-            background-color: var(--southern-sage);
+        .btn-order {
+            background: var(--charcoal);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 8px 15px;
             cursor: pointer;
-            transition: 0.3s;
+            font-family: sans-serif;
+            text-transform: uppercase;
+            font-size: 0.7em;
+            margin-top: 5px;
         }
 
-        button:hover { background-color: var(--clay-terracotta); }
+        .btn-order:hover { background: var(--lebanese-gold); }
     </style>
 </head>
 <body>
 
+<div class="menu-card">
     <header>
-        <h1>Olive & Oak Deli</h1>
-        <p>Hand-made with Southern Hospitality & Middle Eastern Heart</p>
+        <h1>The Gilded Grill</h1>
+        <p>Oklahoma Soul • Middle Eastern Spice • Handmade with Love</p>
     </header>
 
-    <div class="menu-container">
-        <div class="menu-item">
-            <div class="item-details">
-                <h3>The Damascus Biscuit</h3>
-                <p>Buttermilk biscuit, fried halloumi, apricot jam, and a dash of mint.</p>
-            </div>
-            <div class="price">$9.50</div>
-            <button onclick="orderItem('Damascus Biscuit')">Add to Bag</button>
+    <div class="category-title">Sunrise Burritos</div>
+    
+    <div class="menu-item">
+        <div class="item-info">
+            <h3>The Boomer Burrito</h3>
+            <p>Scrambled eggs, crispy hash browns, local chorizo, and a spicy Harissa-infused crema.</p>
+            <button class="btn-order">Add to Order</button>
         </div>
-
-        <div class="menu-item">
-            <div class="item-details">
-                <h3>Lowcountry Shakshuka</h3>
-                <p>Poached eggs in spicy tomato sauce with crumbled local sausage and feta.</p>
-            </div>
-            <div class="price">$12.00</div>
-            <button onclick="orderItem('Lowcountry Shakshuka')">Add to Bag</button>
-        </div>
+        <div class="price">$11</div>
     </div>
 
-    <script>
-        function orderItem(name) {
-            alert(name + " added! We're hand-making this one just for you.");
-        }
-    </script>
+    <div class="category-title">Flat-Top Burgers</div>
+
+    <div class="menu-item">
+        <div class="item-info">
+            <h3>The Sultan Cheeseburger</h3>
+            <p>1/2 lb Beef patty with Sumac-onions, sharp cheddar, and Tahini-garlic "Zesty" sauce.</p>
+            <button class="btn-order">Add to Order</button>
+        </div>
+        <div class="price">$14</div>
+    </div>
+
+    <div class="menu-item">
+        <div class="item-info">
+            <h3>Za'atar Hash Browns</h3>
+            <p>Shredded potatoes fried in clarified butter, dusted with wild thyme and sesame.</p>
+            <button class="btn-order">Add to Order</button>
+        </div>
+        <div class="price">$5</div>
+    </div>
+</div>
+
 </body>
 </html>
