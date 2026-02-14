@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olive & Oak Deli | Breakfast with Love</title>
+    <style>
+        :root {
+            --southern-sage: #8da399;
+            --clay-terracotta: #d67d5c;
+            --warm-cream: #f9f5f0;
+            --deep-wood: #3e2f28;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background-color: var(--warm-cream);
+            color: var(--deep-wood);
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--clay-terracotta);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 { font-style: italic; color: var(--clay-terracotta); }
+
+        .menu-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            border-bottom: 1px dotted var(--southern-sage);
+            padding-bottom: 10px;
+        }
+
+        .item-details h3 { margin: 0; color: var(--deep-wood); }
+        .item-details p { margin: 5px 0; font-size: 0.9em; color: #666; }
+        .price { font-weight: bold; color: var(--clay-terracotta); }
+
+        button {
+            background-color: var(--southern-sage);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover { background-color: var(--clay-terracotta); }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Olive & Oak Deli</h1>
+        <p>Hand-made with Southern Hospitality & Middle Eastern Heart</p>
+    </header>
+
+    <div class="menu-container">
+        <div class="menu-item">
+            <div class="item-details">
+                <h3>The Damascus Biscuit</h3>
+                <p>Buttermilk biscuit, fried halloumi, apricot jam, and a dash of mint.</p>
+            </div>
+            <div class="price">$9.50</div>
+            <button onclick="orderItem('Damascus Biscuit')">Add to Bag</button>
+        </div>
+
+        <div class="menu-item">
+            <div class="item-details">
+                <h3>Lowcountry Shakshuka</h3>
+                <p>Poached eggs in spicy tomato sauce with crumbled local sausage and feta.</p>
+            </div>
+            <div class="price">$12.00</div>
+            <button onclick="orderItem('Lowcountry Shakshuka')">Add to Bag</button>
+        </div>
+    </div>
+
+    <script>
+        function orderItem(name) {
+            alert(name + " added! We're hand-making this one just for you.");
+        }
+    </script>
+</body>
+</html>
