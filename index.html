@@ -3,150 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Gilded Grill | OK-ME Fusion</title>
+    <title>The Gilded Grill | Full Menu</title>
     <style>
-        :root {
-            --ok-rust: #a24632;
-            --saffron: #d4af37;
-            --denim: #1b2e44;
-            --parchment: #fdfaf5;
-        }
-
-        body {
-            margin: 0;
-            background-color: var(--parchment);
-            font-family: 'Georgia', serif;
-            padding-bottom: 100px; /* Space for the sticky cart */
-        }
-
-        header {
-            background: var(--denim);
-            color: white;
-            text-align: center;
-            padding: 40px 20px;
-            border-bottom: 6px solid var(--saffron);
-        }
-
-        .container { max-width: 800px; margin: 20px auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        :root { --ok-rust: #a24632; --saffron: #d4af37; --denim: #1b2e44; --parchment: #fdfaf5; }
+        body { margin: 0; background-color: var(--parchment); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding-bottom: 120px; }
+        header { background: var(--denim); color: white; text-align: center; padding: 25px; border-bottom: 5px solid var(--saffron); }
+        .container { max-width: 600px; margin: auto; padding: 15px; }
+        .category-title { background: var(--ok-rust); color: white; padding: 10px; margin-top: 25px; border-radius: 4px; text-transform: uppercase; font-size: 0.9em; letter-spacing: 1px; }
+        .menu-item { background: white; margin: 10px 0; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border-left: 4px solid var(--saffron); }
+        .item-header { display: flex; justify-content: space-between; align-items: center; }
+        .item-name { font-weight: bold; color: var(--denim); font-size: 1.1em; }
+        .price-group { display: flex; gap: 10px; margin-top: 10px; }
+        .btn-add { background: var(--denim); color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; font-size: 0.8em; flex-grow: 1; }
+        .btn-add span { display: block; font-size: 0.7em; opacity: 0.8; }
         
-        .category { border-bottom: 2px solid var(--ok-rust); margin: 30px 0 10px; color: var(--ok-rust); text-transform: uppercase; font-family: monospace; }
-
-        .menu-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #eee; }
-        
-        .item-info h3 { margin: 0; color: var(--denim); }
-        .item-description { font-size: 0.85em; color: #666; font-style: italic; }
-
-        .price-box { text-align: right; min-width: 100px; }
-        .price { font-weight: bold; color: var(--ok-rust); display: block; }
-
-        .btn-add {
-            background: var(--ok-rust);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            margin-top: 5px;
-        }
-
-        /* STICKY CART STYLE */
-        .cart-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--denim);
-            color: white;
-            padding: 20px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            box-shadow: 0 -5px 15px rgba(0,0,0,0.3);
-            border-top: 4px solid var(--saffron);
-            z-index: 1000;
-        }
-
-        .checkout-btn {
-            background: var(--saffron);
-            color: var(--denim);
-            border: none;
-            padding: 10px 25px;
-            font-weight: bold;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+        /* SHOPPING BAG BAR */
+        .cart-bar { position: fixed; bottom: 0; left: 0; right: 0; background: var(--denim); color: white; padding: 15px; display: flex; justify-content: space-around; align-items: center; border-top: 4px solid var(--saffron); z-index: 1000; }
+        .checkout-btn { background: var(--saffron); color: var(--denim); border: none; padding: 12px 20px; font-weight: bold; border-radius: 5px; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>The Gilded Grill</h1>
-    <p>Hand-Made with Love • Oklahoma x Middle East</p>
+    <h1>THE GILDED GRILL</h1>
+    <p>Oklahoma Soul • Middle Eastern Spice</p>
 </header>
 
 <div class="container">
-    <div class="category">Burgers</div>
+    <div class="category-title">Burgers (Basket includes Side)</div>
     
     <div class="menu-item">
-        <div class="item-info">
-            <h3>Cowboy Burger</h3>
-            <div class="item-description">Smashed onions, BBQ, and a dash of sumac.</div>
-        </div>
-        <div class="price-box">
-            <span class="price">$8.99</span>
-            <button class="btn-add" onclick="addToBag('Cowboy Burger', 8.99)">Add to Bag</button>
+        <div class="item-name">Hamburger</div>
+        <div class="price-group">
+            <button class="btn-add" onclick="addToBag('Hamburger', 6.99)">$6.99<span>Sandwich</span></button>
+            <button class="btn-add" onclick="addToBag('Hamburger Basket', 8.99)">$8.99<span>Basket</span></button>
         </div>
     </div>
 
     <div class="menu-item">
-        <div class="item-info">
-            <h3>Burrito Supreme</h3>
-            <div class="item-description">Wrapped with love and spicy harissa crema.</div>
+        <div class="item-name">Cheeseburger</div>
+        <div class="price-group">
+            <button class="btn-add" onclick="addToBag('Cheeseburger', 7.99)">$7.99<span>Sandwich</span></button>
+            <button class="btn-add" onclick="addToBag('Cheeseburger Basket', 9.99)">$9.99<span>Basket</span></button>
         </div>
-        <div class="price-box">
-            <span class="price">$6.99</span>
-            <button class="btn-add" onclick="addToBag('Burrito Supreme', 6.99)">Add to Bag</button>
+    </div>
+
+    <div class="menu-item">
+        <div class="item-name">Cowboy Burger</div>
+        <div class="price-group">
+            <button class="btn-add" onclick="addToBag('Cowboy Burger', 8.99)">$8.99<span>Sandwich</span></button>
+            <button class="btn-add" onclick="addToBag('Cowboy Basket', 10.99)">$10.99<span>Basket</span></button>
+        </div>
+    </div>
+
+    <div class="category-title">Tex Mex & Specials</div>
+    <div class="menu-item">
+        <div class="item-name">Burrito Supreme</div>
+        <div class="price-group">
+            <button class="btn-add" onclick="addToBag('1 Burrito Supreme', 6.99)">$6.99<span>(1)</span></button>
+            <button class="btn-add" onclick="addToBag('2 Burrito Supreme', 8.99)">$8.99<span>(2)</span></button>
+        </div>
+    </div>
+    
+    <div class="menu-item">
+        <div class="item-name">Chicken Cheese Fries</div>
+        <div class="price-group">
+            <button class="btn-add" onclick="addToBag('Chicken Fries (1)', 9.00)">$9.00<span>(1)</span></button>
+            <button class="btn-add" onclick="addToBag('Chicken Fries (2)', 11.49)">$11.49<span>(2)</span></button>
+        </div>
+    </div>
+
+    <div class="category-title">Sides</div>
+    <div class="menu-item">
+        <div class="item-name">Fries, Tots, or Okra</div>
+        <div class="price-group">
+            <button class="btn-add" onclick="addToBag('Regular Side', 3.49)">$3.49<span>Regular</span></button>
+            <button class="btn-add" onclick="addToBag('Large Side', 4.49)">$4.49<span>Large</span></button>
         </div>
     </div>
 </div>
 
 <div class="cart-bar">
-    <div>
-        <span style="color: var(--saffron);">Items:</span> <span id="item-count">0</span>
-    </div>
-    <div>
-        <span style="font-size: 1.2em;">Total: $<span id="cart-total">0.00</span></span>
-    </div>
-    <button class="checkout-btn" onclick="checkout()">Send Order to Kitchen</button>
+    <div>Total: <span id="cart-total" style="color: var(--saffron); font-weight: bold;">$0.00</span></div>
+    <button class="checkout-btn" onclick="checkout()">Place Order</button>
 </div>
 
 <script>
     let total = 0;
-    let count = 0;
-
     function addToBag(name, price) {
         total += price;
-        count += 1;
-        document.getElementById('cart-total').innerText = total.toFixed(2);
-        document.getElementById('item-count').innerText = count;
+        document.getElementById('cart-total').innerText = `$${total.toFixed(2)}`;
     }
 
     function checkout() {
-        if (count === 0) {
-            alert("Your bag is empty, neighbor!");
-            return;
-        }
-        const ticket = Math.floor(Math.random() * 900) + 100;
-        alert(`✨ Order Sent! ✨\nTicket: #OK-${ticket}\nTotal: $${total.toFixed(2)}\n\nYour handmade breakfast is on the way!`);
-        
-        // Reset after order
+        if (total === 0) { alert("Your bag is empty!"); return; }
+        const notes = prompt("Special instructions? (e.g. No onions, add jalapeños)");
+        alert(`Order Received!\nTotal: $${total.toFixed(2)}\nNotes: ${notes || 'None'}\n\nThank you!`);
         total = 0;
-        count = 0;
-        document.getElementById('cart-total').innerText = "0.00";
-        document.getElementById('item-count').innerText = "0";
+        document.getElementById('cart-total').innerText = "$0.00";
     }
 </script>
 
 </body>
 </html>
- 
