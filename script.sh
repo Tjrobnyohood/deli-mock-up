@@ -10,7 +10,8 @@ read message
 # 3. Commit with your message
 git commit -m "$message"
 
-# 4. Push to the main branch
-git push origin main
+# 4. Push to the main branch using the Token (Bypasses errors)
+git push https://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@github.com/Tjrobnyohood/deli-mock-up.git main
 
 echo "--- Deployment Complete! Check your site in 60 seconds. ---"
+
