@@ -11,7 +11,6 @@
         .container { max-width: 600px; margin: auto; padding: 10px; }
         .cat { background: var(--ok-rust); color: white; padding: 10px; margin-top: 20px; border-radius: 4px; font-weight: bold; text-transform: uppercase; font-size: 0.9em; }
         .item { background: white; margin: 8px 0; padding: 12px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-left: 4px solid var(--saffron); }
-        .desc { font-size: 0.85em; color: #555; margin: 4px 0; }
         .price-btns { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
         .add-btn { background: var(--denim); color: white; border: none; padding: 8px; border-radius: 5px; cursor: pointer; flex: 1; min-width: 100px; font-size: 0.85em; }
         .add-btn span { display: block; font-size: 0.7em; opacity: 0.8; }
@@ -21,67 +20,45 @@
 </head>
 <body>
 
-<header><h1>THE GRILL</h1></header>
+<header><h1>THE GILDED GRILL</h1></header>
 
 <div class="container">
-    <div class="cat">Burgers</div>
-    <div class="item"><strong>Hamburger</strong><div class="price-btns">
-        <button class="add-btn" onclick="add('Hamb.', 6.99)">$6.99<span>Sandwich</span></button>
-        <button class="add-btn" onclick="add('Hamb. Bsk', 8.99)">$8.99<span>Basket</span></button>
-    </div></div>
-    <div class="item"><strong>Cheeseburger</strong><div class="price-btns">
-        <button class="add-btn" onclick="add('Cheese.', 7.99)">$7.99<span>Sandwich</span></button>
-        <button class="add-btn" onclick="add('Cheese. Bsk', 9.99)">$9.99<span>Basket</span></button>
-    </div></div>
-    <div class="item"><strong>Double Bacon Burger</strong><div class="price-btns">
-        <button class="add-btn" onclick="add('Dbl Bacon', 11.99)">$11.99<span>Sandwich</span></button>
-        <button class="add-btn" onclick="add('Dbl Bacon Bsk', 13.99)">$13.99<span>Basket</span></button>
-    </div></div>
-
-    <div class="cat">Sandwiches & Chicken</div>
-    <div class="item"><strong>Grilled Chicken Sandwich</strong><div class="price-btns">
-        <button class="add-btn" onclick="add('Gr. Chkn Sand.', 7.99)">$7.99<span>Sandwich</span></button>
-        <button class="add-btn" onclick="add('Gr. Chkn Bsk.', 9.99)">$9.99<span>Basket</span></button>
-    </div></div>
-    <div class="item"><strong>Hot & Spicy Chicken</strong><div class="price-btns">
-        <button class="add-btn" onclick="add('Spicy Chkn', 3.99)">$3.99<span>Sandwich</span></button>
-        <button class="add-btn" onclick="add('Spicy Chkn Bsk', 6.99)">$6.99<span>Basket</span></button>
-    </div></div>
-
-    <div class="cat">Fish</div>
-    <div class="item"><strong>Fish Pieces</strong><div class="price-btns">
-        <button class="add-btn" onclick="add('1pc Fish', 2.99)">$2.99<span>1pc Only</span></button>
-        <button class="add-btn" onclick="add('1pc Bsk', 7.49)">$7.49<span>1pc Basket</span></button>
-        <button class="add-btn" onclick="add('2pc Fish', 5.99)">$5.99<span>2pc Only</span></button>
-        <button class="add-btn" onclick="add('2pc Bsk', 9.99)">$9.99<span>2pc Basket</span></button>
-    </div></div>
-
-    <div class="cat">Salads & Dinners</div>
-    <div class="item"><strong>Hamburger Steak Dinner</strong>
-        <p class="desc">Grilled onions, brown gravy, small salad & one side.</p>
-        <div class="price-btns"><button class="add-btn" onclick="add('Hamb. Steak Dnr', 9.99)">$9.99<span>Add to Order</span></button></div>
-    </div>
-    <div class="item"><strong>Chef Salad (Ham or 1pc Chicken)</strong><div class="price-btns">
-        <button class="add-btn" onclick="add('Chef Salad', 8.99)">$8.99<span>Standard</span></button>
-        <button class="add-btn" onclick="add('Chef Salad + Egg', 10.99)">$10.99<span>+ 1 Egg</span></button>
-    </div></div>
-
-    <div class="cat">Chicken Pieces</div>
-    <div class="item"><strong>Individual Items</strong><div class="price-btns">
-        <button class="add-btn" onclick="add('Breast', 3.99)">$3.99<span>Breast</span></button>
-        <button class="add-btn" onclick="add('Thigh', 3.49)">$3.49<span>Thigh</span></button>
-        <button class="add-btn" onclick="add('Leg', 3.29)">$3.29<span>Leg</span></button>
-        <button class="add-btn" onclick="add('Wings (8)', 4.99)">$4.99<span>8 Wings</span></button>
-    </div></div>
-
     <div class="cat">Sides</div>
-    <div class="item"><strong>Regular $3.49 | Large $4.49</strong>
-        <p class="desc">Fries, Curly, Waffle, Tots, Onion Rings, Okra</p>
-        <div class="price-btns">
-            <button class="add-btn" onclick="add('Reg Side', 3.49)">$3.49<span>Regular</span></button>
-            <button class="add-btn" onclick="add('Lrg Side', 4.49)">$4.49<span>Large</span></button>
-        </div>
-    </div>
+    
+    <div class="item"><strong>French Fries</strong><div class="price-btns">
+        <button class="add-btn" onclick="add('Reg Fries', 3.49)">$3.49<span>Regular</span></button>
+        <button class="add-btn" onclick="add('Lrg Fries', 4.49)">$4.49<span>Large</span></button>
+    </div></div>
+
+    <div class="item"><strong>Curly Fries</strong><div class="price-btns">
+        <button class="add-btn" onclick="add('Reg Curly', 3.49)">$3.49<span>Regular</span></button>
+        <button class="add-btn" onclick="add('Lrg Curly', 4.49)">$4.49<span>Large</span></button>
+    </div></div>
+
+    <div class="item"><strong>Waffle Fries</strong><div class="price-btns">
+        <button class="add-btn" onclick="add('Reg Waffle', 3.49)">$3.49<span>Regular</span></button>
+        <button class="add-btn" onclick="add('Lrg Waffle', 4.49)">$4.49<span>Large</span></button>
+    </div></div>
+
+    <div class="item"><strong>Tater Tots</strong><div class="price-btns">
+        <button class="add-btn" onclick="add('Reg Tots', 3.49)">$3.49<span>Regular</span></button>
+        <button class="add-btn" onclick="add('Lrg Tots', 4.49)">$4.49<span>Large</span></button>
+    </div></div>
+
+    <div class="item"><strong>Onion Rings</strong><div class="price-btns">
+        <button class="add-btn" onclick="add('Reg O-Rings', 3.49)">$3.49<span>Regular</span></button>
+        <button class="add-btn" onclick="add('Lrg O-Rings', 4.49)">$4.49<span>Large</span></button>
+    </div></div>
+
+    <div class="item"><strong>Fried Okra</strong><div class="price-btns">
+        <button class="add-btn" onclick="add('Reg Okra', 3.49)">$3.49<span>Regular</span></button>
+        <button class="add-btn" onclick="add('Lrg Okra', 4.49)">$4.49<span>Large</span></button>
+    </div></div>
+
+    <div class="item"><strong>Potato Logs</strong><div class="price-btns">
+        <button class="add-btn" onclick="add('1 Log', 0.49)">$0.49<span>Single Log</span></button>
+        <button class="add-btn" onclick="add('3 Logs', 1.08)">$1.08<span>3 for $1.08</span></button>
+    </div></div>
 </div>
 
 <div class="cart-bar">
@@ -94,7 +71,7 @@
     function add(n, p) { t += p; document.getElementById('total').innerText = `$${t.toFixed(2)}`; }
     function checkout() { 
         if(t===0) { alert("Your bag is empty!"); return; }
-        let note = prompt("Special instructions (e.g. Table #, No onions)?");
+        let note = prompt("Special instructions (e.g. Table #, Extra Sauce)?");
         alert(`Order Placed!\nTotal: $${t.toFixed(2)}\nNote: ${note || 'None'}\nTicket: #OK-${Math.floor(Math.random()*999)}`);
         t=0; document.getElementById('total').innerText="$0.00";
     }
