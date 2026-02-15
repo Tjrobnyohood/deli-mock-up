@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Gilded Grill | Interactive Menu</title>
+    <title>The Gilded Grill | POS Demo</title>
     <style>
         :root { --ok-rust: #a24632; --saffron: #d4af37; --denim: #1b2e44; --parchment: #fdfaf5; }
-        body { margin: 0; background-color: var(--parchment); font-family: sans-serif; padding-bottom: 180px; }
+        body { margin: 0; background-color: var(--parchment); font-family: sans-serif; padding-bottom: 220px; }
         header { background: var(--denim); color: white; text-align: center; padding: 15px; border-bottom: 4px solid var(--saffron); }
         .container { max-width: 600px; margin: auto; padding: 10px; }
         .cat { background: var(--ok-rust); color: white; padding: 10px; margin-top: 20px; border-radius: 4px; font-weight: bold; text-transform: uppercase; font-size: 0.8em; }
@@ -16,12 +16,16 @@
         .add-btn span { display: block; font-size: 0.7em; opacity: 0.8; }
         
         /* THE SHOPPING BAG PANEL */
-        .bag-container { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 4px solid var(--saffron); box-shadow: 0 -5px 15px rgba(0,0,0,0.2); z-index: 1000; padding: 10px; max-height: 40vh; overflow-y: auto; }
+        .bag-container { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 4px solid var(--saffron); box-shadow: 0 -5px 15px rgba(0,0,0,0.2); z-index: 1000; padding: 15px; }
+        .bag-items-scroll { max-height: 25vh; overflow-y: auto; margin-bottom: 10px; }
         .bag-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #eee; font-size: 0.9em; }
         .qty-controls { display: flex; align-items: center; gap: 10px; }
-        .qty-btn { background: #eee; border: 1px solid #ccc; width: 30px; height: 30px; border-radius: 50%; font-weight: bold; cursor: pointer; }
-        .checkout-bar { display: flex; justify-content: space-between; align-items: center; background: var(--denim); color: white; padding: 15px; margin-top: 10px; border-radius: 8px; }
-        .checkout-btn { background: var(--saffron); color: var(--denim); border: none; padding: 10px 20px; font-weight: bold; border-radius: 5px; cursor: pointer; }
+        .qty-btn { background: #eee; border: 1px solid #ccc; width: 28px; height: 28px; border-radius: 50%; font-weight: bold; cursor: pointer; }
+        
+        /* TAX & TOTAL SECTION */
+        .summary-row { display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 4px; color: #444; }
+        .total-row { display: flex; justify-content: space-between; font-size: 1.2em; font-weight: bold; margin-top: 8px; padding-top: 8px; border-top: 2px solid #eee; color: var(--denim); }
+        .checkout-btn { background: var(--saffron); color: var(--denim); border: none; width: 100%; padding: 12px; font-weight: bold; border-radius: 5px; cursor: pointer; margin-top: 10px; }
     </style>
 </head>
 <body>
@@ -29,35 +33,30 @@
 <header><h1>THE GILDED GRILL</h1></header>
 
 <div class="container">
-    <div class="cat">Burgers</div>
+    <div class="cat">Featured Burgers</div>
     <div class="item"><strong>Hamburger</strong><div class="price-btns">
         <button class="add-btn" onclick="addToBag('Hamb.', 6.99)">$6.99<span>Sandwich</span></button>
         <button class="add-btn" onclick="addToBag('Hamb. Bsk', 8.99)">$8.99<span>Basket</span></button>
     </div></div>
-    <div class="cat">Sides</div>
-    <div class="item"><strong>French Fries</strong><div class="price-btns">
-        <button class="add-btn" onclick="addToBag('Reg Fries', 3.49)">$3.49<span>Regular</span></button>
-        <button class="add-btn" onclick="addToBag('Lrg Fries', 4.49)">$4.49<span>Large</span></button>
-    </div></div>
-</div>
+    </div>
 
 <div class="bag-container" id="bag-ui" style="display:none;">
-    <div id="bag-items-list"></div>
-    <div class="checkout-bar">
-        <div>Total: <span id="total-display" style="color:var(--saffron); font-weight:bold;">$0.00</span></div>
-        <button class="checkout-btn" onclick="finalCheckout()">Place Order</button>
-    </div>
+    <div class="bag-items-scroll" id="bag-items-list"></div>
+    
+    <div class="summary-row"><span>Subtotal:</span><span id="subtotal-disp">$0.00</span></div>
+    <div class="summary-row"><span>Tax (8.5%):</span><span id="tax-disp">$0.00</span></div>
+    <div class="total-row"><span>TOTAL:</span><span id="final-total-disp">$0.00</span></div>
+    
+    <button class="checkout-btn" onclick="finalCheckout()">Place Order</button>
 </div>
 
 <script>
     let bag = {};
+    const TAX_RATE = 0.085; // Change this to match your city's tax rate (e.g., 0.085 = 8.5%)
 
     function addToBag(name, price) {
-        if (bag[name]) {
-            bag[name].qty += 1;
-        } else {
-            bag[name] = { price: price, qty: 1 };
-        }
+        if (bag[name]) { bag[name].qty += 1; } 
+        else { bag[name] = { price: price, qty: 1 }; }
         updateUI();
     }
 
@@ -71,19 +70,18 @@
     function updateUI() {
         const list = document.getElementById('bag-items-list');
         const ui = document.getElementById('bag-ui');
-        const totalDisp = document.getElementById('total-display');
         
         list.innerHTML = '';
-        let total = 0;
+        let subtotal = 0;
         let itemCount = 0;
 
         for (let item in bag) {
             itemCount++;
             let cost = bag[item].price * bag[item].qty;
-            total += cost;
+            subtotal += cost;
             list.innerHTML += `
                 <div class="bag-item">
-                    <span>${item} ($${bag[item].price})</span>
+                    <span>${item}</span>
                     <div class="qty-controls">
                         <button class="qty-btn" onclick="changeQty('${item}', -1)">-</button>
                         <span>${bag[item].qty}</span>
@@ -92,12 +90,18 @@
                 </div>`;
         }
 
+        let tax = subtotal * TAX_RATE;
+        let finalTotal = subtotal + tax;
+
         ui.style.display = itemCount > 0 ? 'block' : 'none';
-        totalDisp.innerText = `$${total.toFixed(2)}`;
+        document.getElementById('subtotal-disp').innerText = `$${subtotal.toFixed(2)}`;
+        document.getElementById('tax-disp').innerText = `$${tax.toFixed(2)}`;
+        document.getElementById('final-total-disp').innerText = `$${finalTotal.toFixed(2)}`;
     }
 
     function finalCheckout() {
-        alert("Sending order to kitchen...");
+        let ticket = Math.floor(Math.random()*999);
+        alert(`Order #OK-${ticket} submitted!\nPlease show this to the cashier.`);
         bag = {};
         updateUI();
     }
