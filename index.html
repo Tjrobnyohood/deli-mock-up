@@ -3,56 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Gilded Grill | POS Demo</title>
+    <title>Gilded Grill | POS System</title>
     <style>
         :root { --ok-rust: #a24632; --saffron: #d4af37; --denim: #1b2e44; --parchment: #fdfaf5; }
-        body { margin: 0; background-color: var(--parchment); font-family: sans-serif; padding-bottom: 220px; }
-        header { background: var(--denim); color: white; text-align: center; padding: 15px; border-bottom: 4px solid var(--saffron); }
+        body { margin: 0; background-color: var(--parchment); font-family: sans-serif; padding-bottom: 240px; }
+        header { background: var(--denim); color: white; text-align: center; padding: 15px; border-bottom: 4px solid var(--saffron); position: sticky; top:0; z-index: 100; }
         .container { max-width: 600px; margin: auto; padding: 10px; }
-        .cat { background: var(--ok-rust); color: white; padding: 10px; margin-top: 20px; border-radius: 4px; font-weight: bold; text-transform: uppercase; font-size: 0.8em; }
+        .cat { background: var(--ok-rust); color: white; padding: 10px; margin-top: 20px; border-radius: 4px; font-weight: bold; text-transform: uppercase; font-size: 0.8em; letter-spacing: 1px; }
         .item { background: white; margin: 8px 0; padding: 12px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-left: 4px solid var(--saffron); }
         .price-btns { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
-        .add-btn { background: var(--denim); color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; flex: 1; min-width: 100px; font-size: 0.85em; }
+        .add-btn { background: var(--denim); color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; flex: 1; min-width: 100px; font-size: 0.85em; transition: 0.2s; }
+        .add-btn:active { transform: scale(0.95); background: var(--ok-rust); }
         .add-btn span { display: block; font-size: 0.7em; opacity: 0.8; }
-        
-        /* THE SHOPPING BAG PANEL */
-        .bag-container { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 4px solid var(--saffron); box-shadow: 0 -5px 15px rgba(0,0,0,0.2); z-index: 1000; padding: 15px; }
-        .bag-items-scroll { max-height: 25vh; overflow-y: auto; margin-bottom: 10px; }
+        .desc { font-size: 0.8em; color: #666; margin-top: 4px; font-style: italic; }
+
+        /* SHOPPING BAG PANEL */
+        .bag-container { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 4px solid var(--saffron); box-shadow: 0 -5px 20px rgba(0,0,0,0.3); z-index: 1000; padding: 15px; }
+        .bag-items-scroll { max-height: 20vh; overflow-y: auto; margin-bottom: 10px; }
         .bag-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #eee; font-size: 0.9em; }
         .qty-controls { display: flex; align-items: center; gap: 10px; }
         .qty-btn { background: #eee; border: 1px solid #ccc; width: 28px; height: 28px; border-radius: 50%; font-weight: bold; cursor: pointer; }
         
-        /* TAX & TOTAL SECTION */
-        .summary-row { display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 4px; color: #444; }
+        .summary-row { display: flex; justify-content: space-between; font-size: 0.85em; margin-top: 2px; color: #555; }
         .total-row { display: flex; justify-content: space-between; font-size: 1.2em; font-weight: bold; margin-top: 8px; padding-top: 8px; border-top: 2px solid #eee; color: var(--denim); }
-        .checkout-btn { background: var(--saffron); color: var(--denim); border: none; width: 100%; padding: 12px; font-weight: bold; border-radius: 5px; cursor: pointer; margin-top: 10px; }
+        .checkout-btn { background: var(--saffron); color: var(--denim); border: none; width: 100%; padding: 14px; font-weight: bold; border-radius: 5px; cursor: pointer; margin-top: 10px; font-size: 1.1em; }
     </style>
 </head>
 <body>
 
-<header><h1>THE GILDED GRILL</h1></header>
+<header>
+    <h1 style="margin:0; font-size: 1.4em;">THE GILDED GRILL</h1>
+    <div style="font-size: 0.7em; color: var(--saffron);">ORDERING SYSTEM v3.0</div>
+</header>
 
 <div class="container">
-    <div class="cat">Featured Burgers</div>
+    <div class="cat">Burgers (Basket includes Side)</div>
     <div class="item"><strong>Hamburger</strong><div class="price-btns">
         <button class="add-btn" onclick="addToBag('Hamb.', 6.99)">$6.99<span>Sandwich</span></button>
         <button class="add-btn" onclick="addToBag('Hamb. Bsk', 8.99)">$8.99<span>Basket</span></button>
     </div></div>
+    <div class="item"><strong>Cheeseburger</strong><div class="price-btns">
+        <button class="add-btn" onclick="addToBag('Cheese.', 7.99)">$7.99<span>Sandwich</span></button>
+        <button class="add-btn" onclick="addToBag('Cheese. Bsk', 9.99)">$9.99<span>Basket</span></button>
+    </div></div>
+    <div class="item"><strong>Bacon Cheeseburger</strong><div class="price-btns">
+        <button class="add-btn" onclick="addToBag('Bacon Chs', 8.99)">$8.99<span>Sandwich</span></button>
+        <button class="add-btn" onclick="addToBag('Bacon Chs Bsk', 10.99)">$10.99<span>Basket</span></button>
+    </div></div>
+    <div class="item"><strong>Grilled Onion Burger</strong><div class="price-btns">
+        <button class="add-btn" onclick="addToBag('Gr. Onion Brg', 8.99)">$8.99<span>Sandwich</span></button>
+        <button class="add-btn" onclick="addToBag('Gr. Onion Bsk', 10.99)">$10.99<span>Basket</span></button>
+    </div></div>
+    <div class="item"><strong>Double Cheeseburger</strong><div class="price-btns">
+        <button class="add-btn" onclick="addToBag('Dbl Cheese', 9.99)">$9.99<span>Sandwich</span></button>
+        <button class="add-btn" onclick="addToBag('Dbl Cheese Bsk', 11.99)">$11.99<span>Basket</span></button>
+    </div></div>
+    <div class="item"><strong>Double Bacon Burger</strong><div class="price-btns">
+        <button class="add-btn" onclick="addToBag('Dbl Bacon', 11.99)">$11.99<span>Sandwich</span></button>
+        <button class="add-btn" onclick="addToBag('Dbl Bacon Bsk', 13.99)">$13.99<span>Basket</span></button>
+    </div></div>
+    <div class="item"><strong>Chili Cheeseburger</strong><div class="price-btns">
+        <button class="add-btn" onclick="addToBag('Chili Cheese', 9.99)">$9.99<span>Sandwich</span></button>
+        <button class="add-btn" onclick="addToBag('Chili Bsk', 11.99)">$11.99<span>Basket</span></button>
+    </div></div>
+    <div class="item"><strong>Cowboy Burger</strong><div class="price-btns">
+        <button class="add-btn" onclick="addToBag('Cowboy Brg', 8.99)">$8.99<span>Sandwich</span></button>
+        <button class="add-btn" onclick="addToBag('Cowboy Bsk', 10.99)">$10.99<span>Basket</span></button>
+    </div></div>
+
+    <div class="cat">Tex Mex & Specials</div>
+    <div class="item"><strong>Burrito Supreme</strong><div class="price-btns">
+        <button class="add-btn" onclick="addToBag('1 Burrito Sup', 6.99)">$6.99<span>1 Burrito</span></button>
+        <button class="add-btn" onclick="addToBag('2 Burrito Sup', 8.99)">$8.99<span>2 Burritos</span></button>
+    </div></div>
+    <div class="item"><strong>Chicken Cheese Fries</strong><div class="price-btns">
+        <button class="add-btn" onclick="addToBag('Chkn Chs Fr(1)', 9.00)">$9.00<span>(1)</span></button>
+        <button class="add-btn" onclick="addToBag('Chkn Chs Fr(2)', 11.49)">$11.49<span>(2)</span></button>
+    </div></div>
+    <div class="item"><strong>Specials</strong><div class="price-btns">
+        <button class="add-btn" onclick="addToBag('Taco Salad', 8.99)">$8.99<span>Taco Salad</span></button>
+        <button class="add-btn" onclick="addToBag('Cheese Fries', 6.49)">$6.49<span>Cheese Fries</span></button>
+        <button class="add-btn" onclick="addToBag('Soft Tacos', 8.99)">$8.99<span>Soft Tacos</span></button>
+    </div></div>
+
+    <div class="cat">Sandwiches & Chicken</div>
+    <div class="item"><strong>Chicken Sandwich</strong><div class="price-btns">
+        <button class="add-btn" onclick="addToBag('Gr. Chkn Sand', 7.99)">$7.99<span>Grilled</span></button>
+        <button class="add-btn" onclick="addToBag('Gr. Chkn Bsk', 9.99)">$9.99<span>Gr. Basket</span></button>
+        <button class="add-btn" onclick="addToBag('Cr. Chkn Sand', 5.99)">$5.99<span>Crispy</span></button>
+        <button class="add-btn" onclick="addToBag('Cr. Chkn Bsk', 7.99)">$7.99<span>Cr. Basket</span></button>
+    </div></div>
+    <div class="item"><strong>BLT Sandwich</strong><div class="price-btns">
+        <button class="add-btn" onclick="addToBag('BLT Sand', 5.99)">$5.99<span>Sandwich</span></button>
+        <button class="add-btn" onclick="addToBag('BLT Basket', 7.99)">$7.99<span>Basket</span></button>
+    </div></div>
+    <div class="item"><strong>Spicy & Popcorn</strong><div class="price-btns">
+        <button class="add-btn" onclick="addToBag('Spicy Chkn', 3.99)">$3.99<span>Spicy Sand</span></button>
+        <button class="add-btn" onclick="addToBag('Spicy Bsk', 6.99)">$6.99<span>Spicy Bsk</span></button>
+        <button class="add-btn" onclick="addToBag('Popcorn Chkn', 3.99)">$3.99<span>Popcorn</span></button>
+        <button class="add-btn" onclick="addToBag('Popcorn Bsk', 6.99)">$6.99<span>Popcorn Bsk</span></button>
+    </div></div>
+
+    <div class="cat">Fish Pieces</div>
+    <div class="item"><strong>Fish</strong><div class="price-btns">
+        <button class="add-btn" onclick="addToBag('1pc Fish', 2.99)">$2.99<span>1pc Only</span></button>
+        <button class="add-btn" onclick="addToBag('1pc Bsk', 7.49)">$7.49<span>1pc Basket</span></button>
+        <button class="add-btn" onclick="addToBag('2pc Fish', 5.99)">$5.99<span>2pc Only</span></button>
+        <button class="add-btn" onclick="addToBag('2pc Bsk', 9.99)">$9.99<span>2pc Basket</span></button>
+    </div></div>
+
+    <div class="cat">Salads & Dinners</div>
+    <div class="item"><strong>Hamburger Steak Dinner</strong>
+        <p class="desc">With grilled onions, brown gravy, small salad & one side.</p>
+        <div class="price-btns"><button class="add-btn" onclick="addToBag('Hamb. Steak Dinner', 9.99)">$9.99<span>Add Dinner</span></button></div>
     </div>
+    <div class="item"><strong>Chef Salad</strong><div class="price-btns">
+        <button class="add-btn" onclick="addToBag('Chef Sal(1pc)', 8.99)">$8.99<span>Ham/1pc Chk</span></button>
+        <button class="add-btn" onclick="addToBag('Chef Sal +Egg', 10.99)">$10.99<span>+ 1 Egg</span></button>
+        <button class="add-btn" onclick="addToBag('Chef Sal(2pc)', 10.99)">$10.99<span>2pc Chkn</span></button>
+    </div></div>
+
+    <div class="cat">Chicken Pieces</div>
+    <div class="item"><strong>Individual Items</strong><div class="price-btns">
+        <button class="add-btn" onclick="addToBag('Breast', 3.99)">$3.99<span>Breast</span></button>
+        <button class="add-btn" onclick="addToBag('Thigh', 3.49)">$3.49<span>Thigh</span></button>
+        <button class="add-btn" onclick="addToBag('Wing', 2.99)">$2.99<span>Wing</span></button>
+        <button class="add-btn" onclick="addToBag('Leg', 3.29)">$3.29<span>Leg</span></button>
+        <button class="add-btn" onclick="addToBag('Flat Chk', 2.49)">$2.49<span>Flat</span></button>
+        <button class="add-btn" onclick="addToBag('Tender', 2.49)">$2.49<span>Tender</span></button>
+    </div></div>
+    <div class="item"><strong>Buckets & Chunks</strong><div class="price-btns">
+        <button class="add-btn" onclick="addToBag('8 Wings', 4.99)">$4.99<span>8 Wings</span></button>
+        <button class="add-btn" onclick="addToBag('10 Chunks', 4.99)">$4.99<span>10 Chunks</span></button>
+    </div></div>
+
+    <div class="cat">Sides</div>
+    <div class="item"><strong>French Fries</strong><div class="price-btns">
+        <button class="add-btn" onclick="addToBag('Reg Fries', 3.49)">$3.49<span>Regular</span></button>
+        <button class="add-btn" onclick="addToBag('Lrg Fries', 4.49)">$4.49<span>Large</span></button>
+    </div></div>
+    <div class="item"><strong>Curly Fries</strong><div class="price-btns">
+        <button class="add-btn" onclick="addToBag('Reg Curly', 3.49)">$3.49<span>Regular</span></button>
+        <button class="add-btn" onclick="addToBag('Lrg Curly', 4.49)">$4.49<span>Large</span></button>
+    </div></div>
+    <div class="item"><strong>Waffle Fries</strong><div class="price-btns">
+        <button class="add-btn" onclick="addToBag('Reg Waffle', 3.49)">$3.49<span>Regular</span></button>
+        <button class="add-btn" onclick="addToBag('Lrg Waffle', 4.49)">$4.49<span>Large</span></button>
+    </div></div>
+    <div class="item"><strong>Tater Tots</strong><div class="price-btns">
+        <button class="add-btn" onclick="addToBag('Reg Tots', 3.49)">$3.49<span>Regular</span></button>
+        <button class="add-btn" onclick="addToBag('Lrg Tots', 4.49)">$4.49<span>Large</span></button>
+    </div></div>
+    <div class="item"><strong>Onion Rings</strong><div class="price-btns">
+        <button class="add-btn" onclick="addToBag('Reg O-Rings', 3.49)">$3.49<span>Regular</span></button>
+        <button class="add-btn" onclick="addToBag('Lrg O-Rings', 4.49)">$4.49<span>Large</span></button>
+    </div></div>
+    <div class="item"><strong>Fried Okra</strong><div class="price-btns">
+        <button class="add-btn" onclick="addToBag('Reg Okra', 3.49)">$3.49<span>Regular</span></button>
+        <button class="add-btn" onclick="addToBag('Lrg Okra', 4.49)">$4.49<span>Large</span></button>
+    </div></div>
+    <div class="item"><strong>Potato Logs</strong><div class="price-btns">
+        <button class="add-btn" onclick="addToBag('1 Log', 0.49)">$0.49<span>Single</span></button>
+        <button class="add-btn" onclick="addToBag('3 Logs', 1.08)">$1.08<span>3 Logs</span></button>
+    </div></div>
+</div>
 
 <div class="bag-container" id="bag-ui" style="display:none;">
     <div class="bag-items-scroll" id="bag-items-list"></div>
-    
-    <div class="summary-row"><span>Subtotal:</span><span id="subtotal-disp">$0.00</span></div>
+    <div class="summary-row"><span>Subtotal:</span><span id="sub-disp">$0.00</span></div>
     <div class="summary-row"><span>Tax (8.5%):</span><span id="tax-disp">$0.00</span></div>
-    <div class="total-row"><span>TOTAL:</span><span id="final-total-disp">$0.00</span></div>
-    
+    <div class="total-row"><span>TOTAL:</span><span id="total-disp">$0.00</span></div>
     <button class="checkout-btn" onclick="finalCheckout()">Place Order</button>
 </div>
 
 <script>
     let bag = {};
-    const TAX_RATE = 0.085; // Change this to match your city's tax rate (e.g., 0.085 = 8.5%)
+    const TAX_RATE = 0.085;
 
     function addToBag(name, price) {
         if (bag[name]) { bag[name].qty += 1; } 
@@ -70,18 +196,16 @@
     function updateUI() {
         const list = document.getElementById('bag-items-list');
         const ui = document.getElementById('bag-ui');
-        
         list.innerHTML = '';
         let subtotal = 0;
         let itemCount = 0;
 
         for (let item in bag) {
             itemCount++;
-            let cost = bag[item].price * bag[item].qty;
-            subtotal += cost;
+            subtotal += (bag[item].price * bag[item].qty);
             list.innerHTML += `
                 <div class="bag-item">
-                    <span>${item}</span>
+                    <span>${item} ($${bag[item].price})</span>
                     <div class="qty-controls">
                         <button class="qty-btn" onclick="changeQty('${item}', -1)">-</button>
                         <span>${bag[item].qty}</span>
@@ -91,21 +215,19 @@
         }
 
         let tax = subtotal * TAX_RATE;
-        let finalTotal = subtotal + tax;
-
         ui.style.display = itemCount > 0 ? 'block' : 'none';
-        document.getElementById('subtotal-disp').innerText = `$${subtotal.toFixed(2)}`;
+        document.getElementById('sub-disp').innerText = `$${subtotal.toFixed(2)}`;
         document.getElementById('tax-disp').innerText = `$${tax.toFixed(2)}`;
-        document.getElementById('final-total-disp').innerText = `$${finalTotal.toFixed(2)}`;
+        document.getElementById('total-disp').innerText = `$${(subtotal + tax).toFixed(2)}`;
     }
 
     function finalCheckout() {
-        let ticket = Math.floor(Math.random()*999);
-        alert(`Order #OK-${ticket} submitted!\nPlease show this to the cashier.`);
+        let note = prompt("Table Number / Instructions?");
+        let ticket = Math.floor(Math.random()*899) + 100;
+        alert(`ORDER #OK-${ticket} SUCCESS!\n\nNote: ${note || 'None'}\nTake this to the window.`);
         bag = {};
         updateUI();
     }
 </script>
-
 </body>
 </html>
